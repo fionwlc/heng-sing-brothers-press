@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  .font-display {
+    font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Custom refined printmaker scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00e5ff;
+}
+
+@keyframes floatAmbient {
+  0%, 100% {
+    transform: translateY(0px) rotateX(-5deg) rotateY(10deg);
+  }
+  50% {
+    transform: translateY(-8px) rotateX(-2deg) rotateY(14deg);
+  }
+}
+
+@keyframes bannerFloat {
+  0%, 100% {
+    transform: translateY(0px) rotateX(-4deg) rotateY(15deg);
+  }
+  50% {
+    transform: translateY(-6px) rotateX(-2deg) rotateY(19deg);
+  }
+}
+
+@keyframes boxFloat {
+  0%, 100% {
+    transform: translateY(0px) rotateX(-12deg) rotateY(24deg);
+  }
+  50% {
+    transform: translateY(-7px) rotateX(-8deg) rotateY(28deg);
+  }
+}
+
+@keyframes stickerFloat {
+  0%, 100% {
+    transform: translateY(0px) rotateX(-4deg) rotateY(8deg);
+  }
+  50% {
+    transform: translateY(-6px) rotateX(-1deg) rotateY(12deg);
+  }
+}
+
+@keyframes signageFloat {
+  0%, 100% {
+    transform: translateY(0px) rotateX(-5deg) rotateY(-10deg);
+  }
+  50% {
+    transform: translateY(-7px) rotateX(-2deg) rotateY(-6deg);
+  }
+}
+
+.animate-card-float {
+  animation: floatAmbient 5s ease-in-out infinite;
+}
+
+.animate-banner-float {
+  animation: bannerFloat 5.5s ease-in-out infinite;
+}
+
+.animate-box-float {
+  animation: boxFloat 5s ease-in-out infinite;
+}
+
+.animate-sticker-float {
+  animation: stickerFloat 4.8s ease-in-out infinite;
+}
+
+.animate-signage-float {
+  animation: signageFloat 5.2s ease-in-out infinite;
+}
+
