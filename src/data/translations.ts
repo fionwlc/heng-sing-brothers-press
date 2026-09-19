@@ -110,11 +110,20 @@ export interface Translations {
   trustProof: {
     tag: string;
     title: string;
-    card1: string;
-    card2: string;
-    card3: string;
-    card4: string;
-    reviewNotice: string;
+    subtitle: string;
+    procurementBadge: string;
+    statYears: string;
+    statYearsLabel: string;
+    statClients: string;
+    statClientsLabel: string;
+    statDelivery: string;
+    statDeliveryLabel: string;
+    viewCorporateCta: string;
+    card1?: string;
+    card2?: string;
+    card3?: string;
+    card4?: string;
+    reviewNotice?: string;
   };
   guidesPromo: {
     tag: string;
@@ -499,13 +508,17 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       ctaBtn: 'Explore Full Institutional Range'
     },
     trustProof: {
-      tag: 'TRUST & PROOF',
-      title: 'See our work',
-      card1: 'Small-run business stationery',
-      card2: 'Bulk print & packaging runs',
-      card3: 'Large-format & banners',
-      card4: 'Event backdrops & summit signage',
-      reviewNotice: 'Customer reviews — collection starting now, will appear here once gathered'
+      tag: 'INSTITUTIONAL TRUST',
+      title: 'Trusted by our clients',
+      subtitle: 'From premier public universities and state government ministries to municipal city councils, Sarawak\'s leading institutions trust Heng Sing Brothers Press for precision print and publishing.',
+      procurementBadge: 'Official Government & Institutional Vendor Compliance',
+      statYears: '34+ Years',
+      statYearsLabel: 'Continuous Press Operations in Kuching',
+      statClients: '100% On-Spec',
+      statClientsLabel: 'Color Fidelity & Finishing Compliance',
+      statDelivery: 'Direct-to-Campus & HQ',
+      statDeliveryLabel: 'Reliable Sarawak-Wide Logistics',
+      viewCorporateCta: 'Enquire for Institutional Print Tenders'
     },
     guidesPromo: {
       tag: 'NEW TO PRINTING?',
@@ -1035,13 +1048,17 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       ctaBtn: '探索完整机构特制系列'
     },
     trustProof: {
-      tag: '实力与案例',
-      title: '见证精工品质',
-      card1: '小批量商务纸品与文具',
-      card2: '大宗工业级印刷与包装箱',
-      card3: '大幅面喷绘与户外招牌工程',
-      card4: '大型会议背板与活动展架',
-      reviewNotice: '客户真实评价收集整理中，将尽快在此更新呈现'
+      tag: '政府与机构信赖',
+      title: '深受客户信赖',
+      subtitle: '从砂拉越公立重点大学、州政府部门到南北市政局，各大企事业单位与机构三十余载长期信赖恒盛印务的精准色彩与高品质出品。',
+      procurementBadge: '符合政府部门及各大高校官方采购与招投标标准',
+      statYears: '34+ 载',
+      statYearsLabel: '立足古晋始终如一的品质保障',
+      statClients: '严谨色彩校准',
+      statClientsLabel: 'FOGRA51高保真分色与装订质检',
+      statDelivery: '直达校园与机构',
+      statDeliveryLabel: '覆盖全砂各行政区稳妥交付',
+      viewCorporateCta: '咨询机构批量印刷与招标合作'
     },
     guidesPromo: {
       tag: '初次接触印刷？',
@@ -1571,13 +1588,17 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       ctaBtn: 'Terokai Rangkaian Institusi Penuh'
     },
     trustProof: {
-      tag: 'REKOD KEYAKINAN & BUKTI',
-      title: 'Lihat hasil kerja kami',
-      card1: 'Alat tulis perniagaan kuantiti kecil',
-      card2: 'Cetakan pukal & pembungkusan industri',
-      card3: 'Cetakan format besar & kain rentang',
-      card4: 'Latar pentas persidangan & paparan acara',
-      reviewNotice: 'Ulasan pelanggan sedang dikumpul dan akan dipaparkan di sini tidak lama lagi'
+      tag: 'KEPERCAYAAN INSTITUSI & KERAJAAN',
+      title: 'Dipercayai oleh pelanggan kami',
+      subtitle: 'Daripada universiti awam terkemuka Sarawak dan kementerian kerajaan negeri hingga ke dewan bandaraya, institusi utama mempercayai Heng Sing Brothers Press untuk cetakan berkualiti tinggi.',
+      procurementBadge: 'Pematuhan Standard Perolehan Agensi Kerajaan & Universiti Awam',
+      statYears: '34+ Tahun',
+      statYearsLabel: 'Operasi Percetakan Dipercayai di Kuching',
+      statClients: '100% Mengikut Spesifikasi',
+      statClientsLabel: 'Ketepatan Warna & Piawaian Kemasan',
+      statDelivery: 'Penghantaran Terus',
+      statDeliveryLabel: 'Logistik Boleh Dipercayai ke Seluruh Sarawak',
+      viewCorporateCta: 'Hubungi untuk Sebut Harga Institusi'
     },
     guidesPromo: {
       tag: 'BAHARU DALAM PERCETAKAN?',

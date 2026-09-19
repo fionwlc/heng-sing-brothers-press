@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { MessageCircle, Menu, X, ArrowUpRight, ShieldCheck, Sparkles, Send, Globe } from 'lucide-react';
+import { MessageCircle, Menu, X } from 'lucide-react';
 import { HENG_SING_INFO } from '../data/hengSingContent';
 import { HengSingLogo } from './HengSingLogo';
 import { useLanguage } from '../context/LanguageContext';
-import { Language } from '../data/translations';
 
 interface NavbarProps {
   currentView: string;
@@ -56,7 +55,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenQ
             className="flex items-center gap-3 text-left group cursor-pointer"
             aria-label="Heng Sing Brothers Press Home"
           >
-            {/* CMYK micro registration mark & Official Brand Logo */}
             <div className="relative flex items-center gap-2">
               <HengSingLogo size="sm" showRegistrationMarks={false} className="group-hover:opacity-90 transition-opacity" />
             </div>
@@ -79,31 +77,11 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenQ
             ))}
           </nav>
 
-          {/* Action CTAs */}
-          <div className="hidden sm:flex items-center gap-3">
-            <button
-              onClick={onOpenQuote}
-              className="px-4 py-2.5 rounded-xl border border-neutral-300 text-neutral-800 text-xs font-semibold hover:bg-neutral-50 transition-colors cursor-pointer"
-            >
-              {t.nav.quoteButton}
-            </button>
-
-            <a
-              href={HENG_SING_INFO.whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2.5 rounded-xl bg-[#C83B25] hover:bg-[#B3311D] text-white text-xs font-semibold flex items-center gap-2 shadow-sm transition-all hover:shadow-md cursor-pointer"
-            >
-              <MessageCircle className="w-4 h-4 fill-white/20" />
-              <span>{t.nav.whatsappButton}</span>
-            </a>
-          </div>
-
-          {/* Mobile hamburger */}
+          {/* Hamburger / Mobile & Tablet Trigger */}
           <div className="lg:hidden flex items-center gap-2">
             <button
               onClick={onOpenQuote}
-              className="px-3 py-1.5 rounded-lg bg-[#C83B25] text-white text-xs font-semibold"
+              className="px-3 py-1.5 rounded-lg bg-[#C83B25] text-white text-xs font-semibold cursor-pointer"
             >
               {t.nav.quoteButton}
             </button>

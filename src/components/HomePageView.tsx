@@ -4,6 +4,7 @@ import { CmykLogoFormation } from './CmykLogoFormation';
 import { BusinessEssentialsBundleGraphic } from './BusinessEssentialsBundleGraphic';
 import { CategoryMiniGraphic } from './CategoryMiniGraphic';
 import { CorporateShowcaseGraphic } from './CorporateShowcaseGraphic';
+import { TrustedClientsSection } from './TrustedClientsSection';
 import { HENG_SING_CATEGORIES, HENG_SING_INFO, STARTER_KITS } from '../data/hengSingContent';
 import { PenTool, Layers, Wrench, ArrowRight, MessageCircle, FileText, CheckCircle2, ShieldCheck, Sparkles, CreditCard, Package, Flag, Shirt, Gift, Image, Tag, Award } from 'lucide-react';
 import { ServiceCategoryItem } from '../types';
@@ -469,7 +470,13 @@ export const HomePageView: React.FC<HomePageViewProps> = ({
         </div>
       </section>
 
-      {/* 6. New to printing? ("Start with our guides") */}
+      {/* 6. Restored Trust Section: Trusted by Our Clients (Official Client Logos) */}
+      <TrustedClientsSection
+        onOpenQuote={onOpenQuote}
+        onNavigateTo={onNavigateTo}
+      />
+
+      {/* 7. New to printing? ("Start with our guides") */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="space-y-1">
           <span className="text-xs font-mono font-bold text-[#C83B25] uppercase tracking-wider block">

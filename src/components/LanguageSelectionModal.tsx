@@ -96,7 +96,7 @@ export const LanguageSelectionModal: React.FC = () => {
           </div>
 
           <h2 id="lang-modal-title" className="text-xl sm:text-2xl font-display font-black text-neutral-900 tracking-tight pt-1">
-            Welcome to Heng Sing Press
+            Welcome to Heng Sing Brothers Press
           </h2>
           <p className="text-xs text-neutral-500 max-w-sm font-sans leading-relaxed">
             Choose your preferred language to explore our print services. Default is set to English.

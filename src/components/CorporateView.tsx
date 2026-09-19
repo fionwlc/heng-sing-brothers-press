@@ -3,6 +3,7 @@ import { MessageCircle, Mail, FileText, BookOpen, Gift, Calendar, CreditCard, Ch
 import { HENG_SING_INFO } from '../data/hengSingContent';
 import { CorporateShowcaseGraphic } from './CorporateShowcaseGraphic';
 import { CorporateItemCardGraphic } from './CorporateItemCardGraphic';
+import { TrustedClientsSection } from './TrustedClientsSection';
 import { useLanguage } from '../context/LanguageContext';
 
 interface CorporateViewProps {
@@ -120,6 +121,11 @@ export const CorporateView: React.FC<CorporateViewProps> = ({ onOpenQuote, onRea
             <span>{page.pillar3}</span>
           </div>
         </div>
+      </div>
+
+      {/* Trusted Clients Section */}
+      <div className="mb-16">
+        <TrustedClientsSection onOpenQuote={onOpenQuote} />
       </div>
 
       {/* Guide Banner Card */}
