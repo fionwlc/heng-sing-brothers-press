@@ -77,6 +77,25 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenQ
             ))}
           </nav>
 
+          {/* Desktop Action Buttons */}
+          <div className="hidden lg:flex items-center gap-3">
+            <button
+              onClick={onOpenQuote}
+              className="px-4 py-2 rounded-xl border border-neutral-300 text-neutral-800 text-sm font-semibold hover:bg-neutral-50 transition-colors cursor-pointer"
+            >
+              {t.nav.quoteButton}
+            </button>
+            <a
+              href={HENG_SING_INFO.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 rounded-xl bg-[#C83B25] text-white text-sm font-semibold flex items-center gap-2 hover:bg-[#b0321d] transition-colors cursor-pointer"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>WhatsApp</span>
+            </a>
+          </div>
+
           {/* Hamburger / Mobile & Tablet Trigger */}
           <div className="lg:hidden flex items-center gap-2">
             <button
