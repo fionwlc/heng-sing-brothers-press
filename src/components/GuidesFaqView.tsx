@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, ArrowRight, HelpCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { Link } from '../context/RouterContext';
 
 interface GuidesFaqViewProps {
-  onSelectGuide: (guideId: string) => void;
-  onOpenQuote: () => void;
+  onSelectGuide?: (guideId: string) => void;
+  onOpenQuote?: () => void;
 }
 
 export const GuidesFaqView: React.FC<GuidesFaqViewProps> = ({ onSelectGuide, onOpenQuote }) => {
@@ -59,12 +60,12 @@ export const GuidesFaqView: React.FC<GuidesFaqViewProps> = ({ onSelectGuide, onO
                   <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-neutral-600 leading-relaxed border-t border-neutral-100 bg-neutral-50/50 space-y-2">
                     <p>{faq.answer}</p>
                     {faq.linkText && (
-                      <button
-                        onClick={() => onSelectGuide('artwork-guide')}
+                      <Link
+                        href="/guidelines"
                         className="text-xs font-mono text-[#C83B25] font-bold hover:underline inline-flex items-center gap-1 cursor-pointer"
                       >
                         <span>{faq.linkText}</span>
-                      </button>
+                      </Link>
                     )}
                   </div>
                 )}
@@ -87,10 +88,10 @@ export const GuidesFaqView: React.FC<GuidesFaqViewProps> = ({ onSelectGuide, onO
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {page.guides.map((guide) => (
-            <div
+            <Link
               key={guide.id}
-              onClick={() => onSelectGuide(guide.id)}
-              className="p-6 rounded-3xl bg-white border border-neutral-200 shadow-2xs hover:border-neutral-400 transition-all flex flex-col justify-between cursor-pointer group"
+              href="/guidelines"
+              className="p-6 rounded-3xl bg-white border border-neutral-200 shadow-2xs hover:border-neutral-400 transition-all flex flex-col justify-between cursor-pointer group block"
             >
               <div className="space-y-3">
                 <div className="flex justify-between items-center text-[10px] font-mono text-neutral-400">
@@ -111,7 +112,7 @@ export const GuidesFaqView: React.FC<GuidesFaqViewProps> = ({ onSelectGuide, onO
                 <span>{page.readGuideBtn}</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -127,12 +128,13 @@ export const GuidesFaqView: React.FC<GuidesFaqViewProps> = ({ onSelectGuide, onO
           </p>
         </div>
 
-        <button
-          onClick={onOpenQuote}
-          className="px-6 py-3.5 rounded-xl bg-[#C83B25] hover:bg-[#B3311D] text-white text-xs font-bold font-mono uppercase tracking-wider shrink-0 transition-all shadow-md cursor-pointer"
+        <Link
+          href="/quote"
+          category="Business Starter Kit"
+          className="px-6 py-3.5 rounded-xl bg-[#C83B25] hover:bg-[#B3311D] text-white text-xs font-bold font-mono uppercase tracking-wider shrink-0 transition-all shadow-md cursor-pointer inline-block text-center"
         >
           {page.seeKitsBtn}
-        </button>
+        </Link>
       </div>
     </div>
   );

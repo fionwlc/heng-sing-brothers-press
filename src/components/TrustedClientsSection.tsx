@@ -28,7 +28,7 @@ export const TrustedClientsSection: React.FC<TrustedClientsSectionProps> = () =>
           const clientName = client.name[language] || client.name.en;
           const isLastClient = index === TRUSTED_CLIENTS.length - 1 || client.id === 'mysed';
           // Directly reference original image asset for the last client logo
-          const imageSrc = isLastClient ? (client.logoUrl || 'public/clients/mysed.svg') : client.logoUrl;
+          const imageSrc = isLastClient ? (client.logoUrl || '/clients/mysed.svg') : client.logoUrl;
 
           return (
             <div
@@ -47,7 +47,7 @@ export const TrustedClientsSection: React.FC<TrustedClientsSectionProps> = () =>
                 onError={(e) => {
                   // If PNG path is not found, smoothly fall back to SVG asset
                   if (isLastClient && !e.currentTarget.src.endsWith('.svg')) {
-                    e.currentTarget.src = 'public/clients/mysed.svg';
+                    e.currentTarget.src = '/clients/mysed.svg';
                   }
                 }}
               />

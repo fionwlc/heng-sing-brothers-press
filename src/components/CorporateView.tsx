@@ -5,10 +5,11 @@ import { CorporateShowcaseGraphic } from './CorporateShowcaseGraphic';
 import { CorporateItemCardGraphic } from './CorporateItemCardGraphic';
 import { TrustedClientsSection } from './TrustedClientsSection';
 import { useLanguage } from '../context/LanguageContext';
+import { Link } from '../context/RouterContext';
 
 interface CorporateViewProps {
-  onOpenQuote: () => void;
-  onReadGuide: () => void;
+  onOpenQuote?: () => void;
+  onReadGuide?: () => void;
 }
 
 export const CorporateView: React.FC<CorporateViewProps> = ({ onOpenQuote, onReadGuide }) => {
@@ -34,13 +35,14 @@ export const CorporateView: React.FC<CorporateViewProps> = ({ onOpenQuote, onRea
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-2">
-            <button
-              onClick={onOpenQuote}
+            <Link
+              href="/quote"
+              category="Corporate Annual Report / Journal"
               className="px-6 py-3.5 rounded-xl bg-[#C83B25] hover:bg-[#B3311D] text-white text-sm font-semibold flex items-center gap-2 shadow-sm transition-all cursor-pointer"
             >
               <Mail className="w-4 h-4" />
               <span>{page.quoteBtn}</span>
-            </button>
+            </Link>
 
             <a
               href={HENG_SING_INFO.whatsappUrl}
@@ -129,9 +131,9 @@ export const CorporateView: React.FC<CorporateViewProps> = ({ onOpenQuote, onRea
       </div>
 
       {/* Guide Banner Card */}
-      <div
-        onClick={onReadGuide}
-        className="mb-16 p-6 sm:p-8 rounded-3xl bg-neutral-100 border border-neutral-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-neutral-400 transition-colors cursor-pointer group"
+      <Link
+        href="/guides"
+        className="mb-16 p-6 sm:p-8 rounded-3xl bg-neutral-100 border border-neutral-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-neutral-400 transition-colors cursor-pointer group block"
       >
         <div className="space-y-1">
           <h3 className="text-base sm:text-lg font-display font-bold text-neutral-900 group-hover:text-[#C83B25] transition-colors">
@@ -145,7 +147,7 @@ export const CorporateView: React.FC<CorporateViewProps> = ({ onOpenQuote, onRea
           <span>{page.readGuideBtn}</span>
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </div>
-      </div>
+      </Link>
 
       {/* Send us your requirements CTA */}
       <div className="text-center space-y-4 py-8 border-t border-neutral-200">
@@ -153,13 +155,14 @@ export const CorporateView: React.FC<CorporateViewProps> = ({ onOpenQuote, onRea
           {page.sendRequirementsTitle}
         </h3>
         <div className="flex flex-wrap justify-center gap-3">
-          <button
-            onClick={onOpenQuote}
+          <Link
+            href="/quote"
+            category="Corporate Printing Requirements"
             className="px-6 py-3 rounded-xl bg-[#C83B25] hover:bg-[#B3311D] text-white text-xs font-semibold flex items-center gap-2 transition-colors cursor-pointer"
           >
             <Mail className="w-4 h-4" />
             <span>{page.requestQuoteEmailBtn}</span>
-          </button>
+          </Link>
           <a
             href={HENG_SING_INFO.whatsappUrl}
             target="_blank"

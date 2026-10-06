@@ -3,9 +3,10 @@ import { MessageCircle, Check, PenTool, Printer, Wrench } from 'lucide-react';
 import { HENG_SING_INFO } from '../data/hengSingContent';
 import { HengSingLogo } from './HengSingLogo';
 import { useLanguage } from '../context/LanguageContext';
+import { Link } from '../context/RouterContext';
 
 interface AboutViewProps {
-  onOpenQuote: () => void;
+  onOpenQuote?: () => void;
 }
 
 export const AboutView: React.FC<AboutViewProps> = ({ onOpenQuote }) => {
@@ -190,12 +191,12 @@ export const AboutView: React.FC<AboutViewProps> = ({ onOpenQuote }) => {
           {page.bottomCtaDesc}
         </p>
         <div className="flex flex-wrap justify-center gap-3 pt-2">
-          <button
-            onClick={onOpenQuote}
-            className="px-6 py-3 rounded-xl border-2 border-neutral-300 hover:border-neutral-900 text-neutral-900 text-xs font-semibold cursor-pointer"
+          <Link
+            href="/quote"
+            className="px-6 py-3 rounded-xl border-2 border-neutral-300 hover:border-neutral-900 text-neutral-900 text-xs font-semibold cursor-pointer inline-block text-center"
           >
             {page.requestQuoteBtn}
-          </button>
+          </Link>
           <a
             href={HENG_SING_INFO.whatsappUrl}
             target="_blank"

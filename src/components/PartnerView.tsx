@@ -3,10 +3,11 @@ import { MessageCircle, Mail, Flag, Image, Wrench, Sparkles, Check, ArrowRight, 
 import { HENG_SING_INFO } from '../data/hengSingContent';
 import { useLanguage } from '../context/LanguageContext';
 import { EventProductionShowcaseGraphic } from './EventProductionShowcaseGraphic';
+import { Link } from '../context/RouterContext';
 
 interface PartnerViewProps {
-  onOpenQuote: () => void;
-  onReadChecklist: () => void;
+  onOpenQuote?: () => void;
+  onReadChecklist?: () => void;
 }
 
 export const PartnerView: React.FC<PartnerViewProps> = ({ onOpenQuote, onReadChecklist }) => {
@@ -40,13 +41,14 @@ export const PartnerView: React.FC<PartnerViewProps> = ({ onOpenQuote, onReadChe
               <MessageCircle className="w-4 h-4" />
               <span>{page.cta}</span>
             </a>
-            <button
-              onClick={onOpenQuote}
+            <Link
+              href="/quote"
+              category="Event Essentials Kit"
               className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-neutral-300 hover:border-neutral-900 text-neutral-800 text-sm font-semibold transition-colors cursor-pointer"
             >
               <Mail className="w-4 h-4" />
               <span>{page.sendEmail}</span>
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -116,18 +118,19 @@ export const PartnerView: React.FC<PartnerViewProps> = ({ onOpenQuote, onReadChe
           </p>
         </div>
 
-        <button
-          onClick={onOpenQuote}
-          className="px-6 py-3 rounded-xl bg-white hover:bg-neutral-100 text-neutral-900 text-xs font-bold font-mono uppercase tracking-wider shrink-0 transition-colors cursor-pointer"
+        <Link
+          href="/quote"
+          category="Event Essentials Kit"
+          className="px-6 py-3 rounded-xl bg-white hover:bg-neutral-100 text-neutral-900 text-xs font-bold font-mono uppercase tracking-wider shrink-0 transition-colors cursor-pointer inline-block text-center"
         >
           {page.seeKitBtn}
-        </button>
+        </Link>
       </div>
 
       {/* Planning Checklist Banner */}
-      <div
-        onClick={onReadChecklist}
-        className="mb-16 p-6 sm:p-8 rounded-3xl bg-neutral-100 border border-neutral-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-neutral-400 transition-colors cursor-pointer group"
+      <Link
+        href="/guides"
+        className="mb-16 p-6 sm:p-8 rounded-3xl bg-neutral-100 border border-neutral-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-neutral-400 transition-colors cursor-pointer group block"
       >
         <div className="space-y-1">
           <h3 className="text-base sm:text-lg font-display font-bold text-neutral-900 group-hover:text-[#C83B25] transition-colors">
@@ -141,7 +144,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({ onOpenQuote, onReadChe
           <span>{page.readGuideBtn}</span>
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </div>
-      </div>
+      </Link>
 
       {/* Bottom CTA */}
       <div className="text-center space-y-4 py-8 border-t border-neutral-200">
@@ -158,13 +161,14 @@ export const PartnerView: React.FC<PartnerViewProps> = ({ onOpenQuote, onReadChe
             <MessageCircle className="w-4 h-4" />
             <span>{page.continueWhatsapp}</span>
           </a>
-          <button
-            onClick={onOpenQuote}
+          <Link
+            href="/quote"
+            category="Event Production Inquiry"
             className="px-6 py-3 rounded-xl border border-neutral-300 hover:border-neutral-900 text-neutral-800 text-xs font-semibold flex items-center gap-2 transition-colors cursor-pointer"
           >
             <Mail className="w-4 h-4" />
             <span>{page.sendEmail}</span>
-          </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -3,10 +3,11 @@ import { MessageCircle, ArrowRight, ShieldCheck, Sparkles, CheckCircle2 } from '
 import { HENG_SING_INFO } from '../data/hengSingContent';
 import { RotatableBusinessCard3D } from './RotatableBusinessCard3D';
 import { useLanguage } from '../context/LanguageContext';
+import { Link } from '../context/RouterContext';
 
 interface HeroSectionProps {
-  onOpenQuote: () => void;
-  onExploreCatalogue: () => void;
+  onOpenQuote?: () => void;
+  onExploreCatalogue?: () => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote, onExploreCatalogue }) => {
@@ -50,12 +51,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote, onExplore
               <span>{t.hero.ctaWhatsapp}</span>
             </a>
 
-            <button
-              onClick={onOpenQuote}
+            <Link
+              href="/quote"
               className="px-6 py-3.5 rounded-xl border-2 border-neutral-300 hover:border-neutral-900 text-neutral-800 text-sm font-semibold transition-all hover:bg-neutral-50 active:scale-95 cursor-pointer"
             >
               {t.hero.ctaQuote}
-            </button>
+            </Link>
+
+            <Link
+              href="/catalogue"
+              className="px-5 py-3.5 rounded-xl text-neutral-600 hover:text-neutral-900 text-sm font-semibold transition-colors flex items-center gap-1.5 cursor-pointer"
+            >
+              <span>{t.nav.catalogue}</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
 
           {/* Key 4 Highlights from page 6 */}

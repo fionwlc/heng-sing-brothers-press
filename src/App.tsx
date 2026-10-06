@@ -12,15 +12,15 @@ import { Footer } from './components/Footer';
 import { CmykFlowCanvas } from './components/CmykFlowCanvas';
 import { LanguageSelectionModal } from './components/LanguageSelectionModal';
 import { HENG_SING_CATEGORIES, HENG_SING_INFO } from './data/hengSingContent';
-import { MessageCircle, Activity } from 'lucide-react';
+import { MessageCircle, Activity, Link2, Check } from 'lucide-react';
 import { useLanguage } from './context/LanguageContext';
+import { useRouter } from './context/RouterContext';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<string>('home');
+  const { currentView, navigate, quoteCategory, openQuote, currentPath } = useRouter();
   const [activeCategoryIndex, setActiveCategoryIndex] = useState<number>(0);
   const [scrollProgress, setScrollProgress] = useState<number>(0);
-  const [quoteCategory, setQuoteCategory] = useState<string>('Business Essentials');
-  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState<boolean>(false);
+  const [linkCopied, setLinkCopied] = useState<boolean>(false);
   const { language } = useLanguage();
 
   // Track window scroll progress for CMYK fluid ink stream
@@ -36,13 +36,15 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleOpenQuote = (category?: string) => {
-    if (category) {
-      setQuoteCategory(category);
+  const handleCopyDesignatedUrl = () => {
+    try {
+      const fullUrl = `${window.location.origin}${currentPath}`;
+      navigator.clipboard.writeText(fullUrl);
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2200);
+    } catch {
+      // Fallback
     }
-    // Switch to quote view or open modal
-    setCurrentView('quote');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const activeCat = HENG_SING_CATEGORIES[activeCategoryIndex] || HENG_SING_CATEGORIES[0];
@@ -56,27 +58,26 @@ export default function App() {
         scrollProgress={scrollProgress}
       />
 
-      {/* Persistent Navigation Bar */}
+      {/* Persistent Navigation Bar with designated links */}
       <Navbar
         currentView={currentView}
-        onNavigate={(view) => setCurrentView(view)}
-        onOpenQuote={() => handleOpenQuote()}
+        onNavigate={(view) => navigate(view)}
+        onOpenQuote={() => openQuote()}
       />
 
       {/* Main View Router */}
       <main className="relative z-10 flex-1">
         {currentView === 'home' && (
           <HomePageView
-            onOpenQuote={() => handleOpenQuote()}
-            onNavigateTo={(view) => setCurrentView(view)}
-            onSelectCategory={(catName) => handleOpenQuote(catName)}
+            onOpenQuote={() => openQuote()}
+            onNavigateTo={(view) => navigate(view)}
+            onSelectCategory={(catName) => openQuote(catName)}
             onSelectGuide={(guideId) => {
               if (guideId === 'artwork-guide') {
-                setCurrentView('guidelines');
+                navigate('guidelines');
               } else {
-                setCurrentView('guides');
+                navigate('guides');
               }
-              window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             onCategoryHoverChange={(idx) => setActiveCategoryIndex(idx)}
           />
@@ -84,17 +85,14 @@ export default function App() {
 
         {currentView === 'catalogue' && (
           <HengSingCatalogueView
-            onEnquireCategory={(catName) => handleOpenQuote(catName)}
+            onEnquireCategory={(catName) => openQuote(catName)}
           />
         )}
 
         {currentView === 'corporate' && (
           <CorporateView
-            onOpenQuote={() => handleOpenQuote('Corporate Annual Report / Journal')}
-            onReadGuide={() => {
-              setCurrentView('guides');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onOpenQuote={() => openQuote('Corporate Annual Report / Journal')}
+            onReadGuide={() => navigate('guides')}
           />
         )}
 
@@ -102,47 +100,67 @@ export default function App() {
           <GuidesFaqView
             onSelectGuide={(guideId) => {
               if (guideId === 'artwork-guide') {
-                setCurrentView('guidelines');
+                navigate('guidelines');
               } else {
-                setCurrentView('guidelines');
+                navigate('guidelines');
               }
-              window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            onOpenQuote={() => handleOpenQuote('Business Starter Kit')}
+            onOpenQuote={() => openQuote('Business Starter Kit')}
           />
         )}
 
         {currentView === 'guidelines' && (
           <GuidelinesView
-            onBackToGuides={() => setCurrentView('guides')}
-            onRequestQuote={() => handleOpenQuote()}
+            onBackToGuides={() => navigate('guides')}
+            onRequestQuote={() => openQuote()}
           />
         )}
 
         {currentView === 'partner' && (
           <PartnerView
-            onOpenQuote={() => handleOpenQuote('Event Essentials Kit')}
-            onReadChecklist={() => {
-              setCurrentView('guides');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onOpenQuote={() => openQuote('Event Essentials Kit')}
+            onReadChecklist={() => navigate('guides')}
           />
         )}
 
         {currentView === 'about' && (
-          <AboutView onOpenQuote={() => handleOpenQuote()} />
+          <AboutView onOpenQuote={() => openQuote()} />
         )}
 
         {currentView === 'quote' && (
           <QuoteView
             initialCategory={quoteCategory}
-            onViewGuidelines={() => setCurrentView('guidelines')}
+            onViewGuidelines={() => navigate('guidelines')}
           />
         )}
       </main>
 
-      {/* Floating Bottom Action Bar: WhatsApp Quick Connect & Live CMYK Monitor */}
-      <div className="fixed bottom-5 right-5 z-40 flex items-center gap-3">
+      {/* Floating Bottom Action Bar: WhatsApp Quick Connect, Designated Link Badge & Live CMYK Monitor */}
+      <div className="fixed bottom-5 right-5 z-40 flex items-center gap-2.5 sm:gap-3">
+        {/* Designated Page URL Copy Pill */}
+        <button
+          onClick={handleCopyDesignatedUrl}
+          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 border border-neutral-200/90 shadow-md text-[11px] font-mono backdrop-blur-md hover:bg-neutral-50 hover:border-neutral-300 transition-all cursor-pointer group"
+          title={`Copy designated link: ${currentPath}`}
+          aria-label="Copy designated page link"
+        >
+          {linkCopied ? (
+            <>
+              <Check className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="text-emerald-700 font-semibold text-[10px]">
+                {language === 'zh' ? '已复制页面链接' : language === 'ms' ? 'Pautan Disalin' : 'Link Copied'}
+              </span>
+            </>
+          ) : (
+            <>
+              <Link2 className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[#C83B25] transition-colors" />
+              <span className="text-neutral-500 group-hover:text-neutral-900 text-[10px] font-semibold">
+                {currentPath === '/' ? '/home' : currentPath}
+              </span>
+            </>
+          )}
+        </button>
+
         {/* Floating CMYK Density Monitor */}
         <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 border border-neutral-200/90 shadow-lg text-[11px] font-mono backdrop-blur-md">
           <Activity className="w-3.5 h-3.5 text-[#C83B25]" />
@@ -171,7 +189,7 @@ export default function App() {
       </div>
 
       {/* Site Footer */}
-      <Footer onNavigate={(view) => setCurrentView(view)} />
+      <Footer onNavigate={(view) => navigate(view)} />
 
       {/* First-Time Visitor Language Selection Modal */}
       <LanguageSelectionModal />

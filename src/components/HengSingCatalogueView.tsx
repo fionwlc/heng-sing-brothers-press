@@ -3,9 +3,10 @@ import { ArrowRight, MessageCircle, Check, Sparkles, CreditCard, Package, Flag, 
 import { HENG_SING_CATEGORIES } from '../data/hengSingContent';
 import { ServiceCategoryItem } from '../types';
 import { useLanguage } from '../context/LanguageContext';
+import { Link } from '../context/RouterContext';
 
 interface HengSingCatalogueViewProps {
-  onEnquireCategory: (categoryName: string) => void;
+  onEnquireCategory?: (categoryName: string) => void;
 }
 
 export const HengSingCatalogueView: React.FC<HengSingCatalogueViewProps> = ({ onEnquireCategory }) => {
@@ -108,13 +109,14 @@ export const HengSingCatalogueView: React.FC<HengSingCatalogueViewProps> = ({ on
                   {page.viewDetails}
                 </button>
 
-                <button
-                  onClick={() => onEnquireCategory(loc.name)}
+                <Link
+                  href="/quote"
+                  category={loc.name}
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#C83B25] font-mono group-hover:translate-x-0.5 transition-transform cursor-pointer"
                 >
                   <span>{page.enquire}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
-                </button>
+                </Link>
               </div>
             </div>
           );
@@ -195,16 +197,15 @@ export const HengSingCatalogueView: React.FC<HengSingCatalogueViewProps> = ({ on
               </div>
 
               <div className="pt-4 border-t border-neutral-100 flex gap-3">
-                <button
-                  onClick={() => {
-                    onEnquireCategory(locModal.name);
-                    setSelectedCategory(null);
-                  }}
-                  className="flex-1 py-3 rounded-xl bg-[#C83B25] hover:bg-[#B3311D] text-white text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer"
+                <Link
+                  href="/quote"
+                  category={locModal.name}
+                  onClick={() => setSelectedCategory(null)}
+                  className="flex-1 py-3 rounded-xl bg-[#C83B25] hover:bg-[#B3311D] text-white text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer text-center"
                 >
                   <span>{quoteExactText}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
-                </button>
+                </Link>
                 <a
                   href={`https://wa.me/60133282828?text=${encodeURIComponent(whatsappGreeting)}`}
                   target="_blank"

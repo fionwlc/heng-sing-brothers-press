@@ -3,10 +3,11 @@ import { MessageCircle, Mail, Upload, Link as LinkIcon, CheckCircle2, ArrowRight
 import { HENG_SING_CATEGORIES, HENG_SING_INFO } from '../data/hengSingContent';
 import { HengSingLogo } from './HengSingLogo';
 import { useLanguage } from '../context/LanguageContext';
+import { Link } from '../context/RouterContext';
 
 interface QuoteViewProps {
   initialCategory?: string;
-  onViewGuidelines: () => void;
+  onViewGuidelines?: () => void;
 }
 
 export const QuoteView: React.FC<QuoteViewProps> = ({ initialCategory = 'Business Essentials', onViewGuidelines }) => {
@@ -300,14 +301,13 @@ ${driveLink ? `Artwork Link: ${driveLink}\n` : ''}${fileName ? `Attached File: $
               <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wider font-mono">
                 {page.artworkSectionTitle}
               </label>
-              <button
-                type="button"
-                onClick={onViewGuidelines}
+              <Link
+                href="/guidelines"
                 className="text-xs text-[#C83B25] hover:underline font-semibold flex items-center gap-1 cursor-pointer"
               >
                 <span>{page.seeGuidelinesBtn}</span>
                 <ArrowRight className="w-3 h-3" />
-              </button>
+              </Link>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

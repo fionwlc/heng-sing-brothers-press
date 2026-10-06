@@ -9,6 +9,7 @@ import { HENG_SING_CATEGORIES, HENG_SING_INFO, STARTER_KITS } from '../data/heng
 import { PenTool, Layers, Wrench, ArrowRight, MessageCircle, FileText, CheckCircle2, ShieldCheck, Sparkles, CreditCard, Package, Flag, Shirt, Gift, Image, Tag, Award } from 'lucide-react';
 import { ServiceCategoryItem } from '../types';
 import { useLanguage } from '../context/LanguageContext';
+import { Link } from '../context/RouterContext';
 
 interface HomePageViewProps {
   onOpenQuote: () => void;
@@ -118,12 +119,13 @@ export const HomePageView: React.FC<HomePageViewProps> = ({
             </p>
           </div>
 
-          <button
-            onClick={() => onOpenQuote()}
-            className="px-6 py-3.5 rounded-xl bg-[#C83B25] hover:bg-[#B3311D] text-white text-xs font-bold font-mono uppercase tracking-wider shrink-0 transition-all cursor-pointer shadow-md"
+          <Link
+            href="/quote"
+            category="Business Essentials"
+            className="px-6 py-3.5 rounded-xl bg-[#C83B25] hover:bg-[#B3311D] text-white text-xs font-bold font-mono uppercase tracking-wider shrink-0 transition-all cursor-pointer shadow-md inline-block text-center"
           >
             {t.smeBanner.cta}
-          </button>
+          </Link>
         </div>
       </section>
 
@@ -143,12 +145,12 @@ export const HomePageView: React.FC<HomePageViewProps> = ({
             </p>
           </div>
 
-          <button
-            onClick={() => onNavigateTo('catalogue')}
+          <Link
+            href="/catalogue"
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#C83B25] font-mono hover:underline cursor-pointer"
           >
             <span dangerouslySetInnerHTML={{ __html: t.fullRange.viewFullCat }} />
-          </button>
+          </Link>
         </div>
 
         {/* Bento Grid: Business Essentials (Bigger Box with Graphic) + Other Categories with Smaller Graphics / Icons */}
@@ -453,13 +455,13 @@ export const HomePageView: React.FC<HomePageViewProps> = ({
             </div>
 
             <div className="pt-3">
-              <button
-                onClick={() => onNavigateTo('corporate')}
+              <Link
+                href="/corporate"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-[#C83B25] text-white text-xs font-mono font-bold transition-colors cursor-pointer group shadow-xs"
               >
                 <span>{t.corporateSection.ctaBtn}</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -488,9 +490,9 @@ export const HomePageView: React.FC<HomePageViewProps> = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div
-            onClick={() => onSelectGuide('paper-basics')}
-            className="p-6 rounded-3xl bg-white border border-neutral-200 shadow-2xs hover:border-neutral-400 transition-all cursor-pointer group space-y-2"
+          <Link
+            href="/guides"
+            className="p-6 rounded-3xl bg-white border border-neutral-200 shadow-2xs hover:border-neutral-400 transition-all cursor-pointer group space-y-2 block"
           >
             <h3 className="font-display font-bold text-base text-neutral-900 group-hover:text-[#C83B25] transition-colors">
               {t.guidesPromo.guide1Title}
@@ -498,11 +500,11 @@ export const HomePageView: React.FC<HomePageViewProps> = ({
             <p className="text-xs text-neutral-600 leading-relaxed">
               {t.guidesPromo.guide1Desc}
             </p>
-          </div>
+          </Link>
 
-          <div
-            onClick={() => onSelectGuide('printing-methods')}
-            className="p-6 rounded-3xl bg-white border border-neutral-200 shadow-2xs hover:border-neutral-400 transition-all cursor-pointer group space-y-2"
+          <Link
+            href="/guides"
+            className="p-6 rounded-3xl bg-white border border-neutral-200 shadow-2xs hover:border-neutral-400 transition-all cursor-pointer group space-y-2 block"
           >
             <h3 className="font-display font-bold text-base text-neutral-900 group-hover:text-[#C83B25] transition-colors">
               {t.guidesPromo.guide2Title}
@@ -510,11 +512,11 @@ export const HomePageView: React.FC<HomePageViewProps> = ({
             <p className="text-xs text-neutral-600 leading-relaxed">
               {t.guidesPromo.guide2Desc}
             </p>
-          </div>
+          </Link>
 
-          <div
-            onClick={() => onSelectGuide('moq-explained')}
-            className="p-6 rounded-3xl bg-white border border-neutral-200 shadow-2xs hover:border-neutral-400 transition-all cursor-pointer group space-y-2"
+          <Link
+            href="/guidelines"
+            className="p-6 rounded-3xl bg-white border border-neutral-200 shadow-2xs hover:border-neutral-400 transition-all cursor-pointer group space-y-2 block"
           >
             <h3 className="font-display font-bold text-base text-neutral-900 group-hover:text-[#C83B25] transition-colors">
               {t.guidesPromo.guide3Title}
@@ -522,7 +524,7 @@ export const HomePageView: React.FC<HomePageViewProps> = ({
             <p className="text-xs text-neutral-600 leading-relaxed">
               {t.guidesPromo.guide3Desc}
             </p>
-          </div>
+          </Link>
         </div>
       </section>
     </div>

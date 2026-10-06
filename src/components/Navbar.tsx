@@ -1,32 +1,52 @@
 import React, { useState } from 'react';
-import { MessageCircle, Menu, X } from 'lucide-react';
+import { MessageCircle, Menu, X, Share2, Check } from 'lucide-react';
 import { HENG_SING_INFO } from '../data/hengSingContent';
 import { HengSingLogo } from './HengSingLogo';
 import { useLanguage } from '../context/LanguageContext';
+import { useRouter, Link, AppView } from '../context/RouterContext';
 
 interface NavbarProps {
-  currentView: string;
-  onNavigate: (view: string) => void;
-  onOpenQuote: () => void;
+  currentView?: string;
+  onNavigate?: (view: string) => void;
+  onOpenQuote?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenQuote }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  currentView: propView,
+  onNavigate,
+  onOpenQuote: propOpenQuote
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { t } = useLanguage();
+  const { currentView: routerView, navigate, openQuote } = useRouter();
 
-  const navLinks = [
-    { id: 'home', label: t.nav.home },
-    { id: 'catalogue', label: t.nav.catalogue },
-    { id: 'corporate', label: t.nav.corporate },
-    { id: 'guides', label: t.nav.guides },
-    { id: 'partner', label: t.nav.partner },
-    { id: 'about', label: t.nav.about }
+  const activeView = (propView || routerView) as AppView;
+
+  const navLinks: { id: AppView; path: string; label: string }[] = [
+    { id: 'home', path: '/', label: t.nav.home },
+    { id: 'catalogue', path: '/catalogue', label: t.nav.catalogue },
+    { id: 'corporate', path: '/corporate', label: t.nav.corporate },
+    { id: 'guides', path: '/guides', label: t.nav.guides },
+    { id: 'partner', path: '/partner', label: t.nav.partner },
+    { id: 'about', path: '/about', label: t.nav.about }
   ];
 
-  const handleNavClick = (id: string) => {
-    onNavigate(id);
+  const handleNavClick = (view: AppView, path: string) => {
+    if (onNavigate) {
+      onNavigate(view);
+    } else {
+      navigate(path);
+    }
     setMobileMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleQuoteClick = () => {
+    if (propOpenQuote) {
+      propOpenQuote();
+    } else {
+      openQuote();
+    }
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -49,47 +69,58 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenQ
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Brand Logo */}
-          <button
-            onClick={() => handleNavClick('home')}
+          {/* Brand Logo as designated home link */}
+          <Link
+            href="/"
+            onClick={() => setMobileMenuOpen(false)}
             className="flex items-center gap-3 text-left group cursor-pointer"
             aria-label="Heng Sing Brothers Press Home"
+            title="Heng Sing Brothers Press - Kuching (Home)"
           >
             <div className="relative flex items-center gap-2">
               <HengSingLogo size="sm" showRegistrationMarks={false} className="group-hover:opacity-90 transition-opacity" />
             </div>
-          </button>
+          </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => handleNavClick(link.id)}
-                className={`px-3.5 py-2 rounded-xl text-sm font-medium transition-all cursor-pointer ${
-                  currentView === link.id
-                    ? 'text-neutral-950 font-bold bg-neutral-100'
-                    : 'text-neutral-600 hover:text-neutral-950 hover:bg-neutral-50'
-                }`}
-              >
-                {link.label}
-              </button>
-            ))}
+          {/* Desktop Navigation Links with real hrefs */}
+          <nav className="hidden lg:flex items-center gap-1" aria-label="Main Navigation">
+            {navLinks.map((link) => {
+              const isActive = activeView === link.id;
+              return (
+                <Link
+                  key={link.id}
+                  href={link.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`px-3.5 py-2 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                    isActive
+                      ? 'text-neutral-950 font-bold bg-neutral-100 shadow-2xs'
+                      : 'text-neutral-600 hover:text-neutral-950 hover:bg-neutral-50'
+                  }`}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Desktop Action Buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            <button
-              onClick={onOpenQuote}
-              className="px-4 py-2 rounded-xl border border-neutral-300 text-neutral-800 text-sm font-semibold hover:bg-neutral-50 transition-colors cursor-pointer"
+            <Link
+              href="/quote"
+              className={`px-4 py-2 rounded-xl border text-sm font-semibold transition-colors cursor-pointer ${
+                activeView === 'quote'
+                  ? 'border-neutral-900 bg-neutral-900 text-white'
+                  : 'border-neutral-300 text-neutral-800 hover:bg-neutral-50'
+              }`}
             >
               {t.nav.quoteButton}
-            </button>
+            </Link>
             <a
               href={HENG_SING_INFO.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 rounded-xl bg-[#C83B25] text-white text-sm font-semibold flex items-center gap-2 hover:bg-[#b0321d] transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-[#C83B25] text-white text-sm font-semibold flex items-center gap-2 hover:bg-[#b0321d] transition-colors cursor-pointer shadow-xs"
             >
               <MessageCircle className="w-4 h-4" />
               <span>WhatsApp</span>
@@ -98,15 +129,18 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenQ
 
           {/* Hamburger / Mobile & Tablet Trigger */}
           <div className="lg:hidden flex items-center gap-2">
-            <button
-              onClick={onOpenQuote}
+            <Link
+              href="/quote"
+              onClick={() => setMobileMenuOpen(false)}
               className="px-3 py-1.5 rounded-lg bg-[#C83B25] text-white text-xs font-semibold cursor-pointer"
             >
               {t.nav.quoteButton}
-            </button>
+            </Link>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-xl border border-neutral-200 text-neutral-700 hover:bg-neutral-100 transition-colors cursor-pointer"
+              aria-label="Toggle navigation menu"
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -114,33 +148,36 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenQ
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile & Tablet Drawer Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-b border-neutral-200 px-4 pt-2 pb-6 space-y-2">
-          {navLinks.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => handleNavClick(link.id)}
-              className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
-                currentView === link.id
-                  ? 'bg-neutral-100 text-neutral-950 font-bold'
-                  : 'text-neutral-600 hover:bg-neutral-50'
-              }`}
-            >
-              {link.label}
-            </button>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = activeView === link.id;
+            return (
+              <Link
+                key={link.id}
+                href={link.path}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
+                  isActive
+                    ? 'bg-neutral-100 text-neutral-950 font-bold'
+                    : 'text-neutral-600 hover:bg-neutral-50'
+                }`}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
 
           <div className="pt-4 border-t border-neutral-200 flex flex-col gap-2">
-            <button
-              onClick={() => {
-                onOpenQuote();
-                setMobileMenuOpen(false);
-              }}
-              className="w-full py-3 rounded-xl border border-neutral-300 text-neutral-800 text-sm font-semibold text-center"
+            <Link
+              href="/quote"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full py-3 rounded-xl border border-neutral-300 text-neutral-800 text-sm font-semibold text-center block"
             >
               {t.nav.quoteButton}
-            </button>
+            </Link>
             <a
               href={HENG_SING_INFO.whatsappUrl}
               target="_blank"

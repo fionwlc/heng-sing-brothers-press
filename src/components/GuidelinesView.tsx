@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { ArrowLeft, MessageCircle, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import { ARTWORK_SPECS, HENG_SING_INFO } from '../data/hengSingContent';
 import { useLanguage } from '../context/LanguageContext';
+import { Link } from '../context/RouterContext';
 
 interface GuidelinesViewProps {
-  onBackToGuides: () => void;
-  onRequestQuote: () => void;
+  onBackToGuides?: () => void;
+  onRequestQuote?: () => void;
 }
 
 export const GuidelinesView: React.FC<GuidelinesViewProps> = ({ onBackToGuides, onRequestQuote }) => {
@@ -16,13 +17,13 @@ export const GuidelinesView: React.FC<GuidelinesViewProps> = ({ onBackToGuides, 
   return (
     <div className="py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
       {/* Breadcrumb navigation */}
-      <button
-        onClick={onBackToGuides}
+      <Link
+        href="/guides"
         className="inline-flex items-center gap-2 text-xs font-mono text-neutral-500 hover:text-neutral-900 transition-colors mb-6 cursor-pointer"
       >
         <ArrowLeft className="w-3.5 h-3.5" />
         <span>{page.backToGuides}</span>
-      </button>
+      </Link>
 
       {/* Header */}
       <div className="space-y-3 mb-12">
@@ -328,12 +329,12 @@ export const GuidelinesView: React.FC<GuidelinesViewProps> = ({ onBackToGuides, 
         </div>
 
         <div className="flex flex-wrap gap-3 shrink-0">
-          <button
-            onClick={onRequestQuote}
-            className="px-5 py-3 rounded-xl border border-neutral-700 hover:border-white text-xs font-semibold transition-colors cursor-pointer"
+          <Link
+            href="/quote"
+            className="px-5 py-3 rounded-xl border border-neutral-700 hover:border-white text-xs font-semibold transition-colors cursor-pointer inline-block text-center"
           >
             {page.requestQuoteBtn}
-          </button>
+          </Link>
           <a
             href={HENG_SING_INFO.whatsappUrl}
             target="_blank"

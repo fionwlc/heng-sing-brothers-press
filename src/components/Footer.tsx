@@ -4,13 +4,15 @@ import { ArrowUp, MessageCircle, Mail, MapPin, Phone, Globe, Check, ExternalLink
 import { HengSingLogo } from './HengSingLogo';
 import { useLanguage } from '../context/LanguageContext';
 import { Language } from '../data/translations';
+import { Link, useRouter } from '../context/RouterContext';
 
 interface FooterProps {
-  onNavigate: (view: string) => void;
+  onNavigate?: (view: string) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   const { language, setLanguage, t } = useLanguage();
+  const { navigate } = useRouter();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -44,7 +46,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         {/* Brand & Address (4 Cols) */}
         <div className="lg:col-span-4 space-y-3">
           <div className="pb-1">
-            <HengSingLogo size="sm" />
+            <Link href="/" title="Heng Sing Brothers Press Home" className="inline-block hover:opacity-90 transition-opacity">
+              <HengSingLogo size="sm" />
+            </Link>
           </div>
 
           <a
@@ -112,47 +116,64 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </span>
           <ul className="space-y-1.5 font-mono text-neutral-600 text-[11px]">
             <li>
-              <button
-                onClick={() => { onNavigate('catalogue'); scrollToTop(); }}
-                className="hover:text-neutral-900 transition-colors cursor-pointer"
+              <Link
+                href="/catalogue"
+                className="hover:text-neutral-900 transition-colors block py-0.5"
               >
                 {t.nav.catalogue}
-              </button>
+              </Link>
             </li>
             <li>
-              <button
-                onClick={() => { onNavigate('corporate'); scrollToTop(); }}
-                className="hover:text-neutral-900 transition-colors cursor-pointer"
+              <Link
+                href="/corporate"
+                className="hover:text-neutral-900 transition-colors block py-0.5"
               >
                 {t.nav.corporate}
-              </button>
+              </Link>
             </li>
             <li>
-              <button
-                onClick={() => { onNavigate('guides'); scrollToTop(); }}
-                className="hover:text-neutral-900 transition-colors cursor-pointer"
+              <Link
+                href="/guides"
+                className="hover:text-neutral-900 transition-colors block py-0.5"
               >
                 {t.nav.guides}
-              </button>
+              </Link>
             </li>
             <li>
-              <button
-                onClick={() => { onNavigate('partner'); scrollToTop(); }}
-                className="hover:text-neutral-900 transition-colors cursor-pointer"
+              <Link
+                href="/guidelines"
+                className="hover:text-neutral-900 transition-colors block py-0.5"
+              >
+                {language === 'zh' ? '印前规范' : language === 'ms' ? 'Garis Panduan' : 'Artwork Specs'}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/partner"
+                className="hover:text-neutral-900 transition-colors block py-0.5"
               >
                 {t.nav.partner}
-              </button>
+              </Link>
             </li>
             <li>
-              <button
-                onClick={() => { onNavigate('about'); scrollToTop(); }}
-                className="hover:text-neutral-900 transition-colors cursor-pointer"
+              <Link
+                href="/about"
+                className="hover:text-neutral-900 transition-colors block py-0.5"
               >
                 {t.nav.about}
-              </button>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/quote"
+                className="text-[#C83B25] font-semibold hover:underline block py-0.5"
+              >
+                {t.nav.quoteButton} &rarr;
+              </Link>
             </li>
           </ul>
         </div>
+
 
         {/* Language Selection at Bottom (3 Cols) */}
         <div className="lg:col-span-3 space-y-2.5">
